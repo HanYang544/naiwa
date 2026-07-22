@@ -1,0 +1,37 @@
+name: 检查项目文件
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: windows-latest
+    steps:
+      - name: 检出仓库
+        uses: actions/checkout@v4
+
+      - name: 检查 PowerShell 语法
+        shell: powershell
+        run: |
+          $tokens = $null
+          $errors = $null
+          [System.Management.Automation.Language.Parser]::ParseFile(
+            (Resolve-Path '.\naiwa-pet.ps1'),
+            [ref]$tokens,
+            [ref]$errors
+          ) | Out-Null
+          if ($errors.Count) {
+            $errors | Format-List
+            exit 1
+          }
+
+      - name: 检查动画帧数量
+        shell: powershell
+        run: |
+          $daily = (Get-ChildItem '.\assets\animation_detailed' -File -Filter '*.png').Count
+          $funny = (Get-ChildItem '.\assets\funny_detailed' -File -Filter '*.png').Count
+          if ($daily -ne 60) { throw "日常动作应为 60 帧，当前为 $daily 帧" }
+          if ($funny -ne 96) { throw "搞怪动作应为 96 帧，当前为 $funny 帧" }
+          Write-Host "动画帧检查通过：共 $($daily + $funny) 帧"
+
