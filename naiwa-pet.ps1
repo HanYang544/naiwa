@@ -80,7 +80,7 @@ function Reset-Transform {
 }
 
 function Set-Action([int]$index) {
-  $script:action = (($index % 5) + 5) % 5
+  $script:action = (($index % 13) + 13) % 13
   $script:actionStarted = Get-Date
   $script:phase = 0.0
   $script:sitStage = ''
@@ -91,6 +91,14 @@ function Set-Action([int]$index) {
     2 { Set-Sprite 'animation_detailed/sit_00' }
     3 { Set-Sprite 'animation_detailed/laugh_00' }
     4 { Set-Sprite 'animation_detailed/stretch_00' }
+    5 { Set-Sprite 'funny_detailed/think_00' }
+    6 { Set-Sprite 'funny_detailed/noodle_dance_00' }
+    7 { Set-Sprite 'funny_detailed/belly_drum_00' }
+    8 { Set-Sprite 'funny_detailed/pretzel_twist_00' }
+    9 { Set-Sprite 'funny_detailed/freeze_00' }
+    10 { Set-Sprite 'funny_detailed/fake_faint_00' }
+    11 { Set-Sprite 'funny_detailed/brain_loading_00' }
+    12 { Set-Sprite 'funny_detailed/play_bow_00' }
   }
 }
 
@@ -134,7 +142,15 @@ $actionNames = @(
   (U '5Li+5omL5aSn56yR'),
   (U '5Z2Q5LiL5ZWD6ISa6La+'),
   (U '5o2n6IW55aSn56yR'),
-  (U '6La05Zyw5pGH5pGG5ZCQ6IiM5aS0')
+  (U '6La05Zyw5pGH5pGG5ZCQ6IiM5aS0'),
+  (U '6K6k55yf5oCd6ICD'),
+  (U '6Z2i5p2h5Lmx6Iie'),
+  (U '6IKa55qu5omT6byT'),
+  (U '6bq76Iqx5omt6Lqr'),
+  (U '56qB54S255+z5YyW'),
+  (U '5oiP57K+5YGH5pGU'),
+  (U '5aSn6ISR5Yqg6L295Lit'),
+  (U '5bGB6IKh5pyd5aSp5YG355yL')
 )
 for ($index = 0; $index -lt $actionNames.Count; $index++) {
   $actionChoice = New-Object Windows.Controls.MenuItem
@@ -210,6 +226,54 @@ $timer.Add_Tick({
       $sequence = @(0,0,0,1,2,3,4,5,6,6,6,6,6,7,8,9,10,11,11,11,11,11,11)
       $frame = Get-SequenceFrame $sequence $elapsedMs 180
       Set-Sprite ("animation_detailed/stretch_" + $frame.ToString('00'))
+    }
+    5 {
+      # Hand, head, eyes and posture change across real rendered frames.
+      $sequence = @(0,0,1,2,3,4,5,6,6,7,7,8,8,9,10,11,11)
+      $frame = Get-SequenceFrame $sequence $elapsedMs 190
+      Set-Sprite ("funny_detailed/think_" + $frame.ToString('00'))
+    }
+    6 {
+      # Alternating kicks, arms, tongue and airborne poses.
+      $sequence = @(0,1,2,3,3,4,5,6,7,7,8,9,10,11,11)
+      $frame = Get-SequenceFrame $sequence $elapsedMs 155
+      Set-Sprite ("funny_detailed/noodle_dance_" + $frame.ToString('00'))
+    }
+    7 {
+      # Alternating hands visibly dent and release the belly.
+      $sequence = @(0,0,1,2,3,4,5,6,7,8,8,9,10,11,11)
+      $frame = Get-SequenceFrame $sequence $elapsedMs 170
+      Set-Sprite ("funny_detailed/belly_drum_" + $frame.ToString('00'))
+    }
+    8 {
+      # Legs, hips, torso and head counter-rotate through twelve poses.
+      $sequence = @(0,0,1,2,3,4,5,5,6,7,8,9,10,11,11)
+      $frame = Get-SequenceFrame $sequence $elapsedMs 185
+      Set-Sprite ("funny_detailed/pretzel_twist_" + $frame.ToString('00'))
+    }
+    9 {
+      # Startle, lock up, eye twitch, blink, then release.
+      $sequence = @(0,0,0,1,2,3,4,4,4,4,5,5,6,6,7,7,8,9,10,11,11)
+      $frame = Get-SequenceFrame $sequence $elapsedMs 190
+      Set-Sprite ("funny_detailed/freeze_" + $frame.ToString('00'))
+    }
+    10 {
+      # Hand to forehead, buckle, airborne fall, impact, peek and recovery.
+      $sequence = @(0,0,1,2,3,4,5,6,7,7,7,8,8,9,10,11,11)
+      $frame = Get-SequenceFrame $sequence $elapsedMs 185
+      Set-Sprite ("funny_detailed/fake_faint_" + $frame.ToString('00'))
+    }
+    11 {
+      # Eyes drift independently while head, arms and body lag behind.
+      $sequence = @(0,0,1,2,3,4,5,6,7,7,8,8,9,10,11,11)
+      $frame = Get-SequenceFrame $sequence $elapsedMs 205
+      Set-Sprite ("funny_detailed/brain_loading_" + $frame.ToString('00'))
+    }
+    12 {
+      # Hands, feet, hips, head, eyes and tongue articulate independently.
+      $sequence = @(0,0,1,2,3,4,5,6,7,8,9,10,11,11)
+      $frame = Get-SequenceFrame $sequence $elapsedMs 175
+      Set-Sprite ("funny_detailed/play_bow_" + $frame.ToString('00'))
     }
   }
 
