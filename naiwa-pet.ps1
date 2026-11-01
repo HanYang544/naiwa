@@ -4,7 +4,7 @@ Add-Type -AssemblyName PresentationFramework, PresentationCore, WindowsBase
 <Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         WindowStyle="None" AllowsTransparency="True" Background="Transparent"
-        Topmost="True" ShowInTaskbar="False" Width="280" Height="310"
+        Title="Naiwa Desktop Pet" Topmost="True" ShowInTaskbar="False" Width="280" Height="310"
         ResizeMode="NoResize" Focusable="True">
   <Grid>
     <Border x:Name="Bubble" VerticalAlignment="Top" HorizontalAlignment="Center"
