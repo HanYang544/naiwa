@@ -31,7 +31,7 @@ jobs:
         run: |
           $daily = (Get-ChildItem '.\assets\animation_detailed' -File -Filter '*.png').Count
           $funny = (Get-ChildItem '.\assets\funny_detailed' -File -Filter '*.png').Count
-          if ($daily -ne 60) { throw "日常动作应为 60 帧，当前为 $daily 帧" }
-          if ($funny -ne 96) { throw "搞怪动作应为 96 帧，当前为 $funny 帧" }
-          Write-Host "动画帧检查通过：共 $($daily + $funny) 帧"
+          if ($daily -ne 60) { throw "Expected 60 daily frames; found $daily" }
+          if ($funny -ne 96) { throw "Expected 96 funny frames; found $funny" }
+          Write-Host "Animation frames verified: $($daily + $funny)"
 
